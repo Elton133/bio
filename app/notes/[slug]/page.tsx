@@ -1,0 +1,3 @@
+import Link from "next/link";import {notFound} from "next/navigation";import {notes} from "../../_data/site";
+export function generateStaticParams(){return notes.map(n=>({slug:n.slug}))}
+export default async function Note({params}:{params:Promise<{slug:string}>}){const{slug}=await params;const n=notes.find(x=>x.slug===slug);if(!n)notFound();return <main className="article-page"><Link className="mono" href="/notes">← ALL NOTES</Link><header><p className="mono">{n.date} / {n.topic} / {n.read}</p><h1>{n.title}</h1></header><article><p className="lead">{n.lead}</p>{n.sections.map(section=><section key={section.title}><h2>{section.title}</h2><p>{section.body}</p></section>)}<blockquote>“build it, observe it, then let reality correct the model.”</blockquote></article></main>}

@@ -1,0 +1,3 @@
+"use client";
+import Link from "next/link";import {useState} from "react";import {HugeiconsIcon} from "@hugeicons/react";import {ArrowLeft01Icon} from "@hugeicons/core-free-icons";
+export default function NotFound(){const[x,setX]=useState(0);return <main className="not-found" onPointerMove={e=>setX((e.clientX/window.innerWidth-.5)*40)}><p className="mono">ERROR / ROUTE_RESOLUTION_FAILED</p><h1 style={{transform:`translateX(${x}px)`}}>404</h1><h2>YOU&apos;RE<br/>OFF THE MAP.</h2><p className="scribble">impressive.</p><Link href="/"><HugeiconsIcon icon={ArrowLeft01Icon} size={20}/> RETURN TO SYSTEM</Link></main>}

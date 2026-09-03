@@ -1,69 +1,11 @@
-import Image from "next/image";
-
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
-}
+"use client";
+import Link from "next/link";import {useEffect,useRef,useState} from "react";import {AnimatePresence,motion} from "motion/react";import gsap from "gsap";import {ScrollTrigger} from "gsap/ScrollTrigger";import {HugeiconsIcon} from "@hugeicons/react";import {ArrowDown01Icon,ArrowUpRight01Icon} from "@hugeicons/core-free-icons";import {projects} from "./_data/site";
+import {ProjectMedia} from "./_components/ProjectMedia";
+const roles=["SOFTWARE ENGINEER","PRODUCT BUILDER","FOUNDER","MOBILE ENGINEER"];
+export default function Home(){const[role,setRole]=useState(0);const root=useRef<HTMLElement>(null);useEffect(()=>{const timer=setInterval(()=>setRole(v=>(v+1)%roles.length),2200);gsap.registerPlugin(ScrollTrigger);if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const ctx=gsap.context(()=>{gsap.from(".hero-title span",{yPercent:110,rotate:3,duration:1.25,stagger:.09,ease:"power4.out",delay:.1});gsap.to(".hero-title span:first-child",{xPercent:-14,scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:1}});gsap.to(".hero-title span:last-child",{xPercent:12,scrollTrigger:{trigger:".hero",start:"top top",end:"bottom top",scrub:1}});gsap.fromTo(".manifesto h2",{scale:.82},{scale:1,scrollTrigger:{trigger:".manifesto",start:"top bottom",end:"center center",scrub:1}})},root);return()=>{clearInterval(timer);ctx.revert()}}return()=>clearInterval(timer)},[]);return <main ref={root}>
+<section className="hero"><div className="hero-meta mono"><span>ACCRA, GHANA</span><span>05°33&apos;N / 00°11&apos;W</span></div><h1 className="hero-title"><span>ELTON</span><span>JOHN</span><span>MORDEN</span></h1><div className="identity"><span className="identity-label mono">CURRENT MODE /</span><AnimatePresence mode="wait"><motion.span key={role} initial={{y:18,opacity:0}} animate={{y:0,opacity:1}} exit={{y:-18,opacity:0}}>{roles[role]}</motion.span></AnimatePresence></div><p className="scribble hero-note">systems over screens.<br/><em>but good screens matter too.</em></p><div className="scroll-cue mono"><HugeiconsIcon icon={ArrowDown01Icon} size={18}/> SCROLL TO INSPECT</div></section>
+<section className="manifesto"><p className="section-tag mono">01 / OPERATING PRINCIPLE</p><h2>I BUILD THE<br/><span>WHOLE THING.</span></h2><div className="manifesto-copy"><p>From an idea on a whiteboard to a product in someone&apos;s hand. Interfaces, systems, decisions—and the uncomfortable parts between them.</p><span className="scribble">preferably in that order.</span></div></section>
+<section className="work" id="work"><div className="section-head"><span className="mono">02 / SELECTED WORK</span><Link className="mono" href="/work">EXPLORE ALL ↗</Link></div>{projects.slice(0,3).map(p=><Link key={p.slug} href={`/work/${p.slug}`} className="project" style={{"--project":p.accent} as React.CSSProperties} data-cursor="VIEW ↗"><span className="project-no mono">{p.id}</span><span className="project-name">{p.name}</span><span className="project-meta mono">{p.type}<br/>{p.year}</span><span className={`project-visual ${["beagine","speakup"].includes(p.slug)?"has-image":""}`}><ProjectMedia slug={p.slug} name={p.name}/><i/><b>{p.id}</b></span><HugeiconsIcon icon={ArrowUpRight01Icon} size={32} className="project-arrow"/></Link>)}</section>
+<section className="system-map"><div><p className="section-tag mono">03 / CURRENT LOADOUT</p><h2>SYSTEMS.<br/>SCREENS.<br/><span>EVERYTHING<br/>BETWEEN.</span></h2></div><div className="stack-list">{["REACT / NEXT.JS","TYPESCRIPT","REACT NATIVE / EXPO","NODE.JS / SPRING","AWS / CLOUDFLARE","GSAP / MOTION"].map((x,i)=><Link href="/stack" key={x}><span className="mono">0{i+1}</span><b>{x}</b><i/></Link>)}</div></section>
+<section className="lab-tease"><p className="mono">04 / THE LAB</p><h2>THINGS I BUILT<br/>BECAUSE I COULD.</h2><p className="scribble">some were actually useful.</p><Link href="/lab" className="round-link" data-cursor="GO ↗"><span>ENTER<br/>THE LAB</span><HugeiconsIcon icon={ArrowUpRight01Icon} size={24}/></Link></section>
+<footer><p className="mono">AVAILABLE FOR THE RIGHT PROBLEM</p><h2>LET&apos;S BUILD<br/><span>SOMETHING.</span></h2><Link href="/contact" className="contact-link">START A CONVERSATION <HugeiconsIcon icon={ArrowUpRight01Icon} size={28}/></Link><div className="footer-meta mono"><span>ELTON JOHN MORDEN<br/>SOFTWARE ENGINEER / GHANA</span><span>DESIGNED + ENGINEERED<br/>WITH INTENT © 2026</span><span className="scribble">thanks for scrolling.</span></div></footer></main>}
