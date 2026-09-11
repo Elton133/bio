@@ -4,6 +4,7 @@ import "./globals.css";
 import "./extended.css";
 import "./content.css";
 import "./media.css";
+import "./music.css";
 import { SiteShell } from "./_components/SiteShell";
 
 const sans = localFont({ src: "../public/Bebas_Neue,Big_Shoulders,Google_Sans_Flex,Urbanist/Google_Sans_Flex/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf", variable: "--font-main", display: "swap" });
