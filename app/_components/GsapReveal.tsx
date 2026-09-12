@@ -8,7 +8,8 @@ export function GsapReveal({children,className="",horizontal=false}:{children:Re
   useEffect(()=>{
     gsap.registerPlugin(ScrollTrigger);
     const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if(reduce||!ref.current)return;
+    const mobile=window.matchMedia("(max-width: 760px)").matches;
+    if(reduce||!ref.current||(horizontal&&mobile))return;
     const ctx=gsap.context(()=>{
       if(horizontal){
         const track=ref.current?.querySelector<HTMLElement>("[data-track]");
