@@ -1,0 +1,92 @@
+/* stack + notes refinements */
+/* pin optical size so headings keep their weight at display sizes (see case.css) */
+.stack-summary,.stack-layers,.notes-index{font-optical-sizing:none}
+
+/* stack summary + project filter */
+.stack-summary{display:grid;grid-template-columns:auto auto 1fr;gap:6vw;align-items:end;padding:16vh 8vw 10vh;border-bottom:1px solid #222}
+.stack-summary>div:not(.stack-filter){display:flex;flex-direction:column;gap:10px}
+.stack-summary b{font-size:clamp(3rem,6vw,5.5rem);line-height:.9;font-weight:600;letter-spacing:-.04em;color:var(--accent)}
+.stack-summary span{color:#8a8a84}
+.stack-filter{justify-self:end;display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.stack-filter>div{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.stack-filter button{background:none;border:1px solid #3a3a3a;border-radius:100px;padding:10px 18px;font-size:.95rem;color:#cfcfca;cursor:pointer;transition:.2s}
+.stack-filter button:hover{border-color:#777}
+.stack-filter button.active{background:var(--accent);border-color:var(--accent);color:#070707}
+
+/* layers */
+.stack-layers{padding:0 8vw 18vh}
+.stack-layer{display:grid;grid-template-columns:1fr 2.4fr;gap:5vw;padding:12vh 0;border-bottom:1px solid #222}
+.stack-layer header{position:sticky;top:120px;align-self:start}
+.stack-layer header .mono{color:var(--accent)}
+.stack-layer h2{font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.05;letter-spacing:-.02em;font-weight:600;margin:18px 0 10px}
+.stack-layer header p{margin:0;color:#8a8a84;font-size:1rem}
+.stack-layer ul{list-style:none;margin:0;padding:0;border-top:1px solid #2a2a2a}
+.stack-layer li{display:grid;grid-template-columns:minmax(180px,1fr) 1.4fr;gap:3vw;align-items:center;padding:22px 0;border-bottom:1px solid #2a2a2a;transition:opacity .3s,padding .3s}
+.stack-layer li:hover{padding-left:10px}
+.stack-layer li:hover strong{color:var(--accent)}
+.stack-layer strong{font-size:clamp(1.25rem,1.9vw,1.75rem);font-weight:560;letter-spacing:-.015em;transition:color .2s}
+.stack-layer li>span{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.stack-layer em{font-style:normal;font-size:.85rem;color:#9d9d98;border:1px solid #2f2f2f;border-radius:100px;padding:6px 12px;transition:.2s}
+.stack-layers.filtering li:not(.match){opacity:.22}
+.stack-layers.filtering li.match strong{color:var(--accent)}
+.stack-layer em.hit{border-color:var(--accent);color:var(--accent)}
+
+/* notes index */
+.notes-index{padding:14vh 8vw 18vh}
+.notes-head{display:flex;justify-content:space-between;margin:0 0 6vh;color:#8a8a84}
+.notes-head a{color:var(--accent)}
+.notes-head a:hover{text-decoration:underline}
+.notes-index>a{min-height:0;grid-template-columns:1fr 2.4fr 40px;gap:5vw;align-items:start;padding:8vh 0;border-top-color:#262626;transition:.3s}
+.notes-index>a:last-child{border-bottom:1px solid #262626}
+.notes-index>a>.mono{color:#8a8a84;line-height:2}
+.notes-index>a>.mono b{display:block;color:var(--accent);font-weight:400}
+.notes-index h2{font-size:clamp(1.7rem,3vw,2.9rem);line-height:1.1;letter-spacing:-.02em;font-weight:600;max-width:880px;transition:color .25s,transform .35s}
+.notes-index a:hover h2{padding-left:0;transform:translateX(10px)}
+.notes-index a h2{text-transform:uppercase}
+.notes-index a p{margin:20px 0 0;max-width:620px;font-size:1.05rem;line-height:1.7;color:#9d9d98}
+.notes-index>a>svg{justify-self:end;margin-top:8px;transition:.25s}
+.notes-index a:hover>svg{color:var(--accent);transform:translate(4px,-4px)}
+
+@media(max-width:760px){
+  .stack-summary{grid-template-columns:1fr 1fr;gap:6vh 6vw;padding:12vh 6vw 8vh}
+  .stack-filter{grid-column:1/-1;justify-self:start;align-items:flex-start}
+  .stack-filter>div{justify-content:flex-start}
+  .stack-layers{padding:0 6vw 12vh}
+  .stack-layer{grid-template-columns:1fr;gap:5vh;padding:9vh 0}
+  .stack-layer header{position:static}
+  .stack-layer li{grid-template-columns:1fr;gap:12px}
+  .stack-layer li>span{justify-content:flex-start}
+  .notes-index{padding:10vh 6vw 12vh}
+  .notes-index>a{grid-template-columns:1fr 24px;gap:18px;padding:6vh 0;min-height:0}
+  .notes-index>a>.mono{grid-column:1/-1}
+  .notes-index h2{font-size:clamp(1.5rem,6.5vw,2rem)}
+}
+
+/* note detail */
+.article-page{padding:0;font-optical-sizing:none}
+.article-page header{margin:0;padding:116px 8vw 12vh;border-bottom:1px solid #222}
+.article-back{display:inline-flex;align-items:center;gap:8px;color:#9d9d98;transition:color .2s}
+.article-back:hover{color:var(--accent)}
+.article-page header>.mono{margin:6vh 0 0;color:#8a8a84;line-height:2}
+.article-page header>.mono b{display:block;color:var(--accent);font-weight:400}
+.article-page h1{font-size:clamp(2.4rem,5vw,4.8rem);line-height:1.05;letter-spacing:-.03em;font-weight:620;max-width:1050px;margin:3vh 0 0}
+.article-page .lead{max-width:720px;margin:6vh 0 0;font-size:clamp(1.15rem,1.6vw,1.45rem);line-height:1.6;color:#cfcfca}
+.article-page article{width:min(720px,100%);margin:0 auto;padding:14vh 8vw 10vh;box-sizing:content-box;font-size:1.125rem;line-height:1.8;color:#a8a8a3}
+.article-page article section{margin-bottom:10vh}
+.article-page article section>.mono{color:var(--accent)}
+.article-page article h2{font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1.15;letter-spacing:-.02em;font-weight:600;color:#eee;margin:14px 0 22px}
+.article-page article p{margin:0}
+.article-page blockquote{font-size:clamp(2rem,3.4vw,3rem);line-height:1.1;margin:4vh 0 0;padding-left:0}
+.article-next{display:grid;grid-template-columns:1fr auto;gap:3vh 4vw;align-items:end;padding:14vh 8vw;background:var(--accent);color:#070707}
+.article-next span{grid-column:1/-1;opacity:.65}
+.article-next strong{font-size:clamp(1.8rem,3.6vw,3.4rem);line-height:1.08;letter-spacing:-.025em;font-weight:620;max-width:900px}
+.article-next svg{transition:transform .25s}
+.article-next:hover svg{transform:translateX(8px)}
+
+@media(max-width:760px){
+  .article-page{padding:0}
+  .article-page header{padding:104px 6vw 9vh}
+  .article-page header>.mono{margin-top:5vh}
+  .article-page article{padding:10vh 6vw 8vh;width:auto}
+  .article-next{padding:10vh 6vw}
+}
